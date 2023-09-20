@@ -1,0 +1,9 @@
+{
+  "prettier.singleQuote": true,
+  "prettier.jsxSingleQuote": false,
+  "prettier.embeddedLanguageFormatting": "auto",
+  "prettier.quoteProps": "as-needed",
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true
+}
