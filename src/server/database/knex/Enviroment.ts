@@ -6,7 +6,7 @@ export const development: Knex.Config = {
   useNullAsDefault: true,
   connection: {
     filename: path.resolve(__dirname, '..', '..', '..', '..', 'database.sqlite')
-  }, 
+  },
   migrations: {
     directory: path.resolve(__dirname, '..', 'migrations')
   },
@@ -19,7 +19,7 @@ export const development: Knex.Config = {
   }
 };
 
-export const test: Knex.Config =  {
-  ...development, 
-  connection: ':memory:'
+export const test: Knex.Config = {
+  ...development,
+  connection: ':memory:',
 };

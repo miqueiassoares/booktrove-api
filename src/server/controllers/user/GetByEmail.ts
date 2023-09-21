@@ -3,15 +3,14 @@ import { StatusCodes } from 'http-status-codes';
 import { validation } from '../../shared/middleware';
 import * as yup from 'yup';
 import { UserProvider } from '../../database/providers/user';
-import { PasswordCrypto } from '../../shared/services/PasswordCrypto';
-import { JWTService } from '../../shared/services';
+import { PasswordCrypto } from '../../shared/services';
 
 interface IBodyProps {
   email: string,
   password: string
 }
 
-export const signInValidation = validation((getSchema) => (
+export const getByEmailValidation = validation((getSchema) => (
   {
     body: getSchema<IBodyProps>(yup.object().shape({
       email: yup.string().required().email().min(5),
@@ -21,13 +20,13 @@ export const signInValidation = validation((getSchema) => (
 ));
 
 
-export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
+export const getByEmail = async (req: Request<{}, {}, IBodyProps>, res: Response) => {
 
   const {email, password} = req.body;
   
-  const user = await UserProvider.getByEmail(email);
+  const userData = await UserProvider.getByEmail(email);
   
-  if(user instanceof Error) {
+  if(userData instanceof Error) {
     return res.status(StatusCodes.UNAUTHORIZED).json(
       {
         errors: {
@@ -37,7 +36,7 @@ export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
     );
   }
 
-  const passwordMatch = await PasswordCrypto.verifyPassword(password, user.password); 
+  const passwordMatch = await PasswordCrypto.verifyPassword(password, userData.password); 
 
   if (!passwordMatch) {
     return res.status(StatusCodes.UNAUTHORIZED).json(
@@ -47,23 +46,11 @@ export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
         }
       }
     );
-  } else {
-    const accessToken = JWTService.sign({uid: user.id});
-    
-    if (accessToken === 'JWT_SECRET_NOT_FOUND') {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
-        {
-          errors: {
-            default: 'Error generating access token.'
-          }
-        }
-      );
-    }
-
-    res.status(StatusCodes.OK).json({
-      accessToken: accessToken
-    });
   }
-  
-  
+
+  res.status(StatusCodes.OK).json({ 
+    ...userData,
+    password: password
+  });
+
 };
