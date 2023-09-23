@@ -8,7 +8,7 @@ export async function up(knex: Knex) {
       table.bigIncrements('id').primary().index();
       table.string('shelfname', 50).checkLength('<=', 50).index().notNullable();
       table.string('bookid', 250).checkLength('<=', 250).notNullable();
-      table.integer('userid').checkPositive().notNullable();
+      table.integer('userid').checkPositive().notNullable().unique();
     })
     .then(() => {
       console.log(`# Create table ${ETablesNames.shelves}`);
