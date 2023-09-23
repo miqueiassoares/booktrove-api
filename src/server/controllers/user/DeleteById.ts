@@ -29,6 +29,18 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
     );
   }
 
+  const { userId } = req.headers;
+
+  if (Number(userId) !== Number(req.params.id)) {
+    return res.status(StatusCodes.UNAUTHORIZED).json(
+      {
+        errors: {
+          default: 'The id entered is not the same as the one passed by the jwt authorization token.'
+        }
+      }
+    );
+  }
+
   const result = await UserProvider.deleteById(req.params.id);
 
   if (result instanceof Error) {

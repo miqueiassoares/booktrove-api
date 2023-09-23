@@ -21,8 +21,6 @@ function dateValidation(dateofbirth: Date) {
   return age;
 }
 
-
-
 export const signUpValidation = validation((getSchema) => (
   {
     body: getSchema<IBodyProps>(yup.object().shape({

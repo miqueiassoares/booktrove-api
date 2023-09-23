@@ -36,14 +36,23 @@ export const updateByIdValidation = validation((getSchema) => (
 
 export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res: Response) => {
 
-  
-  
-
   if(!req.params.id) {
     return res.status(StatusCodes.BAD_REQUEST).json(
       {
         errors: {
           default: 'The "id" parameter must be provided.'
+        }
+      }
+    );
+  }
+
+  const { userId } = req.headers;
+
+  if (Number(userId) !== Number(req.params.id)) {
+    return res.status(StatusCodes.UNAUTHORIZED).json(
+      {
+        errors: {
+          default: 'The id entered is not the same as the one passed by the jwt authorization token.'
         }
       }
     );

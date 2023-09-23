@@ -48,6 +48,18 @@ export const getByEmail = async (req: Request<{}, {}, IBodyProps>, res: Response
     );
   }
 
+  const { userId } = req.headers;
+
+  if (Number(userId) !== Number(userData.id)) {
+    return res.status(StatusCodes.UNAUTHORIZED).json(
+      {
+        errors: {
+          default: 'mismatched Jwt authorization token and user id.'
+        }
+      }
+    );
+  }
+
   res.status(StatusCodes.OK).json({ 
     ...userData,
     password: password
