@@ -48,9 +48,9 @@ export const getByEmail = async (req: Request<{}, {}, IBodyProps>, res: Response
     );
   }
 
-  const { userId } = req.headers;
+  const { userIdJwt } = req.headers;
 
-  if (Number(userId) !== Number(userData.id)) {
+  if (Number(userIdJwt) !== Number(userData.id)) {
     return res.status(StatusCodes.UNAUTHORIZED).json(
       {
         errors: {

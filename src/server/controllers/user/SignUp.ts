@@ -4,6 +4,7 @@ import { validation } from '../../shared/middleware';
 import * as yup from 'yup';
 import { UserProvider } from '../../database/providers/user';
 import { IUser } from '../../database/models/User';
+import { FavoritesProvider } from '../../database/providers/favorites';
 
 interface IBodyProps extends Omit<IUser, 'id'> {
   
@@ -58,6 +59,17 @@ export const signUp = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
         }
       }
     );
+  }
+
+  const createFavorites = await FavoritesProvider.create({bookid: '', userid: result});
+
+  if (createFavorites instanceof Error) {
+    return res.status(StatusCodes.CREATED).json({
+      userId: result,
+      errors: {
+        default: 'The user was created, but it was not possible to create favorites for the user.'
+      }
+    });
   }
 
   res.status(StatusCodes.CREATED).json(result);

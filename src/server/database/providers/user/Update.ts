@@ -34,9 +34,9 @@ export const updateById = async (id: number, data: IUserData ): Promise<void | E
 
     if (result > 0) return;
 
-    return new Error('Erro ao consultar o registro.');
+    return new Error('Erro ao atualizar o registro.');
   } catch(error) {
     console.log(error);
-    return new Error('Erro ao consultar o registro.');
+    return new Error('Erro ao atualizar o registro.');
   }
 };

@@ -21,7 +21,8 @@ router.delete('/user/:id', ensureAuthenticated, UserController.deleteByIdValidat
 
 // favorites
 
-router.post('/favorites', ensureAuthenticated, FavoritesController.createValidation, FavoritesController.create);
 router.get('/favorites/:id', ensureAuthenticated, FavoritesController.getByIdValidation, FavoritesController.getById);
+router.put('/favorites/:id', ensureAuthenticated, FavoritesController.updateByIdValidation, FavoritesController.updateById);
+router.delete('/favorites/:id', ensureAuthenticated, FavoritesController.deleteByIdValidation, FavoritesController.deleteById);
 
 export { router };

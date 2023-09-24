@@ -30,9 +30,9 @@ export const getById = async (req: Request<IParamsProps>, res: Response) => {
     );
   }
 
-  const { userId } = req.headers;
+  const { userIdJwt } = req.headers;
 
-  if (Number(userId) !== Number(result.userId)) {
+  if (Number(userIdJwt) !== Number(result.userid)) {
     return res.status(StatusCodes.UNAUTHORIZED).json(
       {
         errors: {

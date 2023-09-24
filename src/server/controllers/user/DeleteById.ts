@@ -29,9 +29,9 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
     );
   }
 
-  const { userId } = req.headers;
+  const { userIdJwt } = req.headers;
 
-  if (Number(userId) !== Number(req.params.id)) {
+  if (Number(userIdJwt) !== Number(req.params.id)) {
     return res.status(StatusCodes.UNAUTHORIZED).json(
       {
         errors: {

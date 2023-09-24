@@ -37,7 +37,7 @@ export const ensureAuthenticated: RequestHandler = async (req, res, next) => {
     });
   }
 
-  req.headers.userId = jwtData.uid.toString();
+  req.headers.userIdJwt = jwtData.uid.toString();
 
   return next();
 };

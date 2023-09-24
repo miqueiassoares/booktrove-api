@@ -7,7 +7,7 @@ export async function up(knex: Knex) {
     .createTable(ETablesNames.favorites, table => {
       table.bigIncrements('id').primary().index();
       table.string('bookid', 250).checkLength('<=', 250).notNullable();
-      table.integer('userId').unique().notNullable().references('id').inTable(ETablesNames.user);
+      table.integer('userid').unique().notNullable().references('id').inTable(ETablesNames.user);
     })
     .then(() => {
       console.log(`# Create table ${ETablesNames.favorites}`);
