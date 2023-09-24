@@ -3,6 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { validation } from '../../shared/middleware';
 import * as yup from 'yup';
 import { UserProvider } from '../../database/providers/user';
+import { FavoritesProvider } from '../../database/providers/favorites';
 
 interface IParamProps {
   id?: number
@@ -39,6 +40,16 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
         }
       }
     );
+  }
+
+  const deleteFavorites = await FavoritesProvider.deleteTable(req.params.id);
+
+  if (deleteFavorites instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: 'Error when deleting user favorites.'
+      }
+    });
   }
 
   const result = await UserProvider.deleteById(req.params.id);

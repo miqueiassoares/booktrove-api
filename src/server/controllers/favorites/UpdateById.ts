@@ -38,8 +38,6 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
 
   const result = await FavoritesProvider.getById(Number(req.params.id));
 
-  console.log(result);
-  
 
   if (result instanceof Error) {
     const createFavorties = await FavoritesProvider.create({bookid: `${req.body.bookid},`, userid: Number(req.params.id)});
@@ -59,12 +57,7 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
 
   const prevBookId = result.bookid;
 
-  console.log(prevBookId);
-
-  const newBookId = prevBookId+`${req.body.bookid},`;
-
-  console.log(newBookId);
-  
+  const newBookId = prevBookId+`${req.body.bookid},`;  
 
   const updateFavorites = await FavoritesProvider.updateById(Number(req.params.id) , { bookid: newBookId});
 
@@ -76,5 +69,5 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
     });
   }
 
-  res.status(StatusCodes.NO_CONTENT).json('Favorites has been updated successfully!');
+  res.status(StatusCodes.NO_CONTENT).send('Favorites has been updated successfully!');
 };

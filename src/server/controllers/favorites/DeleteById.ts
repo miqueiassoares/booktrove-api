@@ -38,8 +38,6 @@ export const deleteById = async (req: Request<IParamProps, {}, IBodyProps>, res:
 
   const data = await FavoritesProvider.getById(Number(req.params.id));
 
-  console.log(data);
-
   if (data instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
       {
@@ -78,8 +76,6 @@ export const deleteById = async (req: Request<IParamProps, {}, IBodyProps>, res:
 
   const newBookId = prevBookId.toString();
 
-  console.log(newBookId);
-
   const result = await FavoritesProvider.deleteById(Number(req.params.id), { bookid: newBookId });
   
   if (result instanceof Error) {
@@ -90,5 +86,5 @@ export const deleteById = async (req: Request<IParamProps, {}, IBodyProps>, res:
     });
   }
 
-  res.status(StatusCodes.NO_CONTENT).json('Bookid deleted successfully!');
+  res.status(StatusCodes.NO_CONTENT).send('Bookid deleted successfully!');
 };

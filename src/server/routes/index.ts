@@ -1,8 +1,7 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { UserController } from '../controllers';
+import { UserController, FavoritesController } from '../controllers';
 import { ensureAuthenticated } from '../shared/middleware/EnsureAuthenticated';
-import { FavoritesController } from '../controllers/favorites';
 
 
 const router = Router();

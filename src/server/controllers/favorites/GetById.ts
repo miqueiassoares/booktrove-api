@@ -18,6 +18,18 @@ export const getByIdValidation = validation((getSchema) => (
 
 export const getById = async (req: Request<IParamsProps>, res: Response) => {
 
+  const { userIdJwt } = req.headers;
+
+  if (Number(userIdJwt) !== Number(req.params.id)) {
+    return res.status(StatusCodes.UNAUTHORIZED).json(
+      {
+        errors: {
+          default: 'Mismatched Jwt authorization token and userId.'
+        }
+      }
+    );
+  }
+
   const result = await FavoritesProvider.getById(Number(req.params.id));
 
   if (result instanceof Error) {
@@ -25,18 +37,6 @@ export const getById = async (req: Request<IParamsProps>, res: Response) => {
       {
         errors: {
           default: 'Favorites could not be retrieved.'
-        }
-      }
-    );
-  }
-
-  const { userIdJwt } = req.headers;
-
-  if (Number(userIdJwt) !== Number(result.userid)) {
-    return res.status(StatusCodes.UNAUTHORIZED).json(
-      {
-        errors: {
-          default: 'Mismatched Jwt authorization token and userId.'
         }
       }
     );
