@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { UserProvider } from '../../database/providers/user';
 import { IUser } from '../../database/models/User';
 import { FavoritesProvider } from '../../database/providers/favorites';
+import { ShelvesProvider } from '../../database/providers/shelves';
 
 interface IBodyProps extends Omit<IUser, 'id'> {
   
@@ -62,12 +63,13 @@ export const signUp = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
   }
 
   const createFavorites = await FavoritesProvider.create({bookid: '', userid: result});
+  const createShelves = await ShelvesProvider.create({ shelves: '[]', userid: result});
 
-  if (createFavorites instanceof Error) {
+  if (createFavorites instanceof Error || createShelves instanceof Error) {
     return res.status(StatusCodes.CREATED).json({
       userId: result,
       errors: {
-        default: 'The user was created, but it was not possible to create favorites for the user.'
+        default: 'The user was created, but it was not possible to create favorites or shelves for the user.'
       }
     });
   }

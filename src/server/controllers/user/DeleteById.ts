@@ -4,6 +4,7 @@ import { validation } from '../../shared/middleware';
 import * as yup from 'yup';
 import { UserProvider } from '../../database/providers/user';
 import { FavoritesProvider } from '../../database/providers/favorites';
+import { ShelvesProvider } from '../../database/providers/shelves';
 
 interface IParamProps {
   id?: number
@@ -50,6 +51,18 @@ export const deleteById = async (req: Request<IParamProps>, res: Response) => {
         default: 'Error when deleting user favorites.'
       }
     });
+  }
+
+  const deleteShelves = await ShelvesProvider.deleteTable(req.params.id);
+
+  if (deleteShelves instanceof Error) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
+      {
+        errors: {
+          default: 'Error when deleting user shelves'
+        }
+      }
+    );
   }
 
   const result = await UserProvider.deleteById(req.params.id);

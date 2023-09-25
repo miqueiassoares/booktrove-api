@@ -9,7 +9,7 @@ export const updateById = async (id: number, bookId: IBookId): Promise<void | Er
   try {
 
     const [{count}] = await Knex(ETablesNames.favorites)
-      .where('id', 'like', id)
+      .where('userid', 'like', id)
       .count<[{count: number}]>('* as count');
     
     if (count === 0) {

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { UserController, FavoritesController } from '../controllers';
+import { UserController, FavoritesController, ShelvesController } from '../controllers';
 import { ensureAuthenticated } from '../shared/middleware/EnsureAuthenticated';
 
 
@@ -23,5 +23,12 @@ router.delete('/user/:id', ensureAuthenticated, UserController.deleteByIdValidat
 router.get('/favorites/:id', ensureAuthenticated, FavoritesController.getByIdValidation, FavoritesController.getById);
 router.put('/favorites/:id', ensureAuthenticated, FavoritesController.updateByIdValidation, FavoritesController.updateById);
 router.delete('/favorites/:id', ensureAuthenticated, FavoritesController.deleteByIdValidation, FavoritesController.deleteById);
+
+
+// shelves
+
+router.put('/shelves', ensureAuthenticated, ShelvesController.createShelfIdValidation, ShelvesController.createShelf);
+router.put('/shelves/:id', ensureAuthenticated, ShelvesController.updateShelvesValidation, ShelvesController.updateShelves);
+router.get('/shelves/:id', ensureAuthenticated, ShelvesController.getByIdValidation, ShelvesController.getById);
 
 export { router };

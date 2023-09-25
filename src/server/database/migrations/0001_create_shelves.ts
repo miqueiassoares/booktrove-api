@@ -6,9 +6,8 @@ export async function up(knex: Knex) {
     .schema
     .createTable(ETablesNames.shelves, table => {
       table.bigIncrements('id').primary().index();
-      table.string('shelfname', 50).checkLength('<=', 50).index().notNullable();
-      table.string('bookid', 250).checkLength('<=', 250).notNullable();
-      table.integer('userid').checkPositive().notNullable().unique();
+      table.string('shelves', 1090).checkLength('<=', 1090).index().notNullable();
+      table.integer('userid').unique().notNullable().references('id').inTable(ETablesNames.user);
     })
     .then(() => {
       console.log(`# Create table ${ETablesNames.shelves}`);

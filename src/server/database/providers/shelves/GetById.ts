@@ -1,12 +1,12 @@
 import { ETablesNames } from '../../ETablesNames';
 import { Knex } from '../../knex';   
-import { IFavorites } from '../../models';
+import { IShelves } from '../../models';
 
-export const getById = async (userId: number): Promise<IFavorites | Error> => {
+export const getById = async (userid: number): Promise<IShelves | Error> => {
   try {
-    const result = await Knex(ETablesNames.favorites)
+    const result = await Knex(ETablesNames.shelves)
       .select('*')
-      .where('userid', '=', userId)
+      .where('userid', '=', userid)
       .first();
 
     if (result) return result;
