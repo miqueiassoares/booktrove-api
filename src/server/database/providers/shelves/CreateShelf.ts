@@ -10,7 +10,7 @@ export const createShelf = async (shelves: IShelves, userid: number): Promise<vo
 
     const result = await Knex(ETablesNames.shelves)
       .update(shelves)
-      .where('userId', '=', userid);
+      .where('userid', '=', userid);
 
     if (result > 0) return;
 

@@ -10,7 +10,7 @@ export const deleteById = async (id: number, bookId: IBookId): Promise<void | Er
 
     const result = await Knex(ETablesNames.favorites)
       .update(bookId)
-      .where('userId', '=', id);
+      .where('userid', '=', id);
 
     if (result > 0) return;
 
