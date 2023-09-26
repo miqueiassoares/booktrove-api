@@ -3,7 +3,17 @@
   "builds": [
     {
       "src": "src/index.ts",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "env": {
+        "NODE_ENV": "production",
+        "JWT_SECRET": "0874ed0e61a3eb7e9c71bf89a0d6a404",
+        "PORT": 9090,
+        "PGHOST": "ep-bold-pond-29480385.us-east-2.aws.neon.tech",
+        "PGUSER": "miqueiassoares",
+        "PGDATABASE": "neondb",
+        "PGPASSWORD": "miqueiassoares",
+        "ENDPOINT_ID": "ep-bold-pond-29480385"
+      }
     }
   ],
   "routes": [

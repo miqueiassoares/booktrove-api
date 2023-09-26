@@ -30,11 +30,12 @@ export const production: Knex.Config = {
     directory: path.resolve(__dirname, '..', 'migrations')
   }, 
   connection: {
-    host: process.env.DATABASE_HOST,
-    user: process.env.DATABASE_USER,
-    database: process.env.DATABASE_NAME,
-    password: process.env.DATABASE_PASSWORD,
+    host: process.env.PGHOST,
+    user: process.env.PGUSER,
+    database: process.env.PGDATABASE,
+    password: process.env.PGPASSWORD,
     port: Number(process.env.DATABASE_PORT || 5432),
-    ssl: {rejectUnauthorized: false}
+    ssl: {rejectUnauthorized: false},
+    msiEndpoint: process.env.ENDPOINT_ID
   }
 };
