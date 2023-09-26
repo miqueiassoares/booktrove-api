@@ -35,7 +35,6 @@ export const production: Knex.Config = {
     database: process.env.PGDATABASE,
     password: process.env.PGPASSWORD,
     port: Number(process.env.DATABASE_PORT || 5432),
-    ssl: {rejectUnauthorized: false},
-    msiEndpoint: process.env.ENDPOINT_ID
+    ssl: {rejectUnauthorized: false}
   }
 };
