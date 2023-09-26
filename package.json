@@ -13,7 +13,7 @@
     "knex:rollback-all": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback --all",
     "knex:migrate": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:latest",
     "test": "jest",
-    "vercel-build": "prod"
+    "vercel-build": "node ./build/index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
