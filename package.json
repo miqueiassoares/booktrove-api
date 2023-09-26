@@ -7,13 +7,12 @@
   "private": false,
   "scripts": {
     "dev": "nodemon --watch src/ --exec ts-node src/index.ts -e ts",
-    "postinstall": "tsc",
+    "build": "tsc",
     "prod": "node ./build/index.js",
     "knex:rollback": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback",
     "knex:rollback-all": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:rollback --all",
     "knex:migrate": "knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:latest",
-    "test": "jest",
-    "vercel-build": "yarn knex --knexfile ./src/server/database/knex/Enviroment.ts migrate:latest"
+    "test": "jest"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

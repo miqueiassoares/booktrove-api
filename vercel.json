@@ -1,11 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/node"
-    }
-  ],
   "build": {
     "env": {
       "NODE_ENV": "production",
@@ -20,8 +14,8 @@
   },
   "routes": [
     {
-      "src": "(.*)",
-      "dest": "src/index.ts"
+      "src": "/(.*)",
+      "dest": "/"
     }
   ]
 }
