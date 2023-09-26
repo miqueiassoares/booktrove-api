@@ -1,3 +1,15 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/src" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/src" }],
+  "build": {
+    "env": {
+      "NODE_ENV": "production",
+      "JWT_SECRET": "0874ed0e61a3eb7e9c71bf89a0d6a404",
+      "PORT": "9090",
+      "PGHOST": "ep-bold-pond-29480385.us-east-2.aws.neon.tech",
+      "PGUSER": "miqueiassoares",
+      "PGDATABASE": "neondb",
+      "PGPASSWORD": "QAZzR4XlWNK7",
+      "ENDPOINT_ID": "ep-bold-pond-29480385"
+    }
+  }
 }
