@@ -55,11 +55,21 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
     return res.status(StatusCodes.NO_CONTENT).json('Favorites has been updated successfully!');
   }
 
-  const prevBookId = result.bookid;
+  const prevBookId = result.bookid.split(',');
 
-  const newBookId = prevBookId+`${req.body.bookid},`;  
+  if (prevBookId.length >= 15) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(
+      {
+        errors: {
+          default: 'The favorites list has reached the maximum limit of 15 books.'
+        }
+      }
+    );
+  }
 
-  const updateFavorites = await FavoritesProvider.updateById(Number(req.params.id) , { bookid: newBookId});
+  const newBookId = prevBookId.push(req.body.bookid);
+
+  const updateFavorites = await FavoritesProvider.updateById(Number(req.params.id) , { bookid: newBookId.toString()});
 
   if (updateFavorites instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
