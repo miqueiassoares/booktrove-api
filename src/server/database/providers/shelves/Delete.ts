@@ -4,14 +4,6 @@ import { ETablesNames } from '../../ETablesNames';
 
 export const deleteTable = async (id: number): Promise<void | Error> => {
   try {
-  
-    const [{count}] = await Knex(ETablesNames.shelves)
-      .where('userid', 'like', id)
-      .count<[{count: number}]>('* as count');
-    
-    if (count === 0) {
-      return new Error('The person used in the registration was not found.');
-    }
 
     const result = await Knex(ETablesNames.shelves)
       .delete()

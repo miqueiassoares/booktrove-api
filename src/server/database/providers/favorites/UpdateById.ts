@@ -8,14 +8,6 @@ interface IBookId {
 export const updateById = async (id: number, bookId: IBookId): Promise<void | Error> => {
   try {
 
-    const [{count}] = await Knex(ETablesNames.favorites)
-      .where('userid', 'like', id)
-      .count<[{count: number}]>('* as count');
-    
-    if (count === 0) {
-      return new Error('There are no records in the favorites table for this Id.');
-    }
-
     const result = await Knex(ETablesNames.favorites)
       .update(bookId)
       .where('userId', '=', id);

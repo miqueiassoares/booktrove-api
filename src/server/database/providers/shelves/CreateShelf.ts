@@ -8,14 +8,6 @@ interface IShelves {
 export const createShelf = async (shelves: IShelves, userid: number): Promise<void | Error> => {
   try {
 
-    const [{count}] = await Knex(ETablesNames.shelves)
-      .where('userid', 'like', userid)
-      .count<[{count: number}]>('* as count');
-    
-    if (count === 0) {
-      return new Error('There are no records in the shelves table for this Id.');
-    }
-
     const result = await Knex(ETablesNames.shelves)
       .update(shelves)
       .where('userId', '=', userid);
