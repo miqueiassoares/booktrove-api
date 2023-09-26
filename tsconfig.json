@@ -111,5 +111,7 @@
     "./node_modules",
     "./tests",
     "./build"
+  ], "include": [
+    "./src/*.ts"
   ]
 }
