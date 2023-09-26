@@ -67,9 +67,9 @@ export const updateById = async (req: Request<IParamProps, {}, IBodyProps>, res:
     );
   }
 
-  const newBookId = prevBookId.push(req.body.bookid);
+  prevBookId.push(req.body.bookid);
 
-  const updateFavorites = await FavoritesProvider.updateById(Number(req.params.id) , { bookid: newBookId.toString()});
+  const updateFavorites = await FavoritesProvider.updateById(Number(req.params.id) , { bookid: prevBookId.toString()});
 
   if (updateFavorites instanceof Error) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
