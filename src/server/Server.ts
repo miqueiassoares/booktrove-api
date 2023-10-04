@@ -6,7 +6,10 @@ import { router } from './routes';
 const server = express();
 
 server.use(cors({
-  origin: process.env.ENABLED?.split(';') || []
+  origin: [
+    'http://localhost:3000',
+    'https://booktrove.vercel.app'
+  ]
 }));
 
 server.use(express.json());

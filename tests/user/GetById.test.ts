@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 import { serverTest } from '../jest.setup';
 
-describe('User - GetByEmail', () => {
+describe('User - GetById', () => {
 
   let accessToken = '';
 
@@ -34,54 +34,20 @@ describe('User - GetByEmail', () => {
   it('Getting user', async () => {
 
     const res1 = await serverTest
-      .get('/user')
+      .get('/user/1')
       .set({ Authorization: `Bearer ${accessToken}` })
-      .send({
-        email: 'anabeatriz12@gmail.com',
-        password: 'ana90219'
-      });
+      .send();
     
     expect(res1.statusCode).toEqual(StatusCodes.OK);
     expect(res1.body).toHaveProperty('fullname');
   });
 
-  it('Trying to catch user with invalid email', async () => {
+  it('Trying to catch user with invalid id', async () => {
 
     const res1 = await serverTest
-      .get('/user')
+      .get('/user/3')
       .set({ Authorization: `Bearer ${accessToken}` })
-      .send({
-        email: 'anabeatrz12@gmail.com',
-        password: 'ana90219'
-      });
-    
-    expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-    expect(res1.body).toHaveProperty('errors');
-  });
-
-  it('Trying to catch user with invalid password', async () => {
-
-    const res1 = await serverTest
-      .get('/user')
-      .set({ Authorization: `Bearer ${accessToken}` })
-      .send({
-        email: 'anabeatriz12@gmail.com',
-        password: 'ana9219'
-      });
-    
-    expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
-    expect(res1.body).toHaveProperty('errors');
-  });
-
-  it('Trying to catch user with userId and data returned by email incompatible', async () => {
-
-    const res1 = await serverTest
-      .get('/user')
-      .set({ Authorization: `Bearer ${accessToken}` })
-      .send({
-        email: 'anabeatriz12@gmail.com',
-        password: 'ana9219'
-      });
+      .send();
     
     expect(res1.statusCode).toEqual(StatusCodes.UNAUTHORIZED);
     expect(res1.body).toHaveProperty('errors');

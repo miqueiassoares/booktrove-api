@@ -7,14 +7,14 @@ import { ensureAuthenticated } from '../shared/middleware/EnsureAuthenticated';
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.status(StatusCodes.OK).send('Api funcionando!');
+  res.status(StatusCodes.OK).send('App running!');
 });
 
 // user
 
 router.post('/signin', UserController.signInValidation, UserController.signIn);
 router.post('/signup', UserController.signUpValidation, UserController.signUp);
-router.get('/user', ensureAuthenticated, UserController.getByEmailValidation , UserController.getByEmail);
+router.get('/user/:id', ensureAuthenticated, UserController.getByIdValidation , UserController.getById);
 router.put('/user/:id', ensureAuthenticated, UserController.updateByIdValidation , UserController.updateById);
 router.delete('/user/:id', ensureAuthenticated, UserController.deleteByIdValidation , UserController.deleteById);
 

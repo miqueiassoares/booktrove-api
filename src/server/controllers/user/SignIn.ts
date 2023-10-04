@@ -61,6 +61,10 @@ export const signIn = async (req: Request<{}, {}, IBodyProps>, res: Response) =>
     }
 
     res.status(StatusCodes.OK).json({
+      userData: {
+        ...user,
+        password: password
+      },
       accessToken: accessToken
     });
   }
